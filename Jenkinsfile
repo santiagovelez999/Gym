@@ -46,12 +46,6 @@ pipeline {
     }
     
 
-   stage('Clean') {
-         steps{
-            sh './gradlew --b ./microservicio/build.gradle clean'
-      }
-   }
-
 
     stage('Compile & Unit Tests') {
       steps{
