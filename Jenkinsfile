@@ -4,7 +4,11 @@ pipeline {
     label 'Slave_Induccion'
   }
 
-  //Opciones específicas de Pipeline dentro del Pipeline
+  environment {
+        PROJECT_PATH_BACK = './microservicio/'
+  }
+
+
   options {
     	buildDiscarder(logRotator(numToKeepStr: '3'))
  	disableConcurrentBuilds()
@@ -12,8 +16,8 @@ pipeline {
 
   //Una sección que define las herramientas “preinstaladas” en Jenkins
   tools {
-    jdk 'JDK8_Centos' //Verisión preinstalada en la Configuración del Master
-    gradle 'Gradle5.0_Centos' //Preinstalada en la Configuración del Master
+    jdk 'JDK8_Centos'
+    gradle 'Gradle5.0_Centos'
   }
 /*	Versiones disponibles
       JDK8_Mac
@@ -49,11 +53,12 @@ pipeline {
 
     stage('Compile & Unit Tests') {
       steps{
-        	echo "------------>Clean<------------"
-        	sh 'gradle --b ./microservicio/build.gradle clean'
-		
-        	echo "------------>Tests<------------"
-        	sh 'gradle --b ./microservicio/build.gradle test'
+        dir("${PROJECT_PATH_BACK}")
+        {
+          sh 'chmod +x gradlew'
+          sh './gradlew --b ./build.gradle clean'
+          sh './gradlew --b ./build.gradle test'
+        }        
       }
     }
 
