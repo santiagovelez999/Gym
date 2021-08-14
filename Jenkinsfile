@@ -47,13 +47,24 @@ pipeline {
     }
     
     
-   
+    stage('Compile') {
+      steps{
+        echo "------------>Compile<------------"
+        sh 'gradle --b ./microservicio/build.gradle clean compileJava'
+      }
+    }
+ 
+
     stage('Compile & Unit Tests') {
       steps{
-        	echo "------------>Compile & Unit Tests<------------"
-		sh 'chmod +x ./microservicio/gradlew'
-		sh './microservicio/gradlew --b ./microservicio/build.gradle clean'
-		sh './microservicio/gradlew --b ./microservicio/build.gradle test'
+        	echo "------------>Clean<------------"
+        	sh 'gradle --b ./microservicio/build.gradle clean'
+		
+        	echo "------------>Tests<------------"
+        	sh 'gradle --b ./microservicio/build.gradle test'
+		
+		echo "------------>JacocoTestReport<------------"
+		sh 'gradle --b ./microservicio/build.gradle jacocoTestReport'
       }
     }
 
