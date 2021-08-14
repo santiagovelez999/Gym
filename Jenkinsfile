@@ -75,7 +75,7 @@ pipeline {
       steps {
         dir("${PROJECT_PATH_BACK}")
         {
-          sh 'gradle build -x test'
+          sh './gradlew --b ./build.gradle build -x test'
         }
       }  
     }
