@@ -66,18 +66,19 @@ pipeline {
       steps{
         echo '------------>Análisis de código estático<------------'
         withSonarQubeEnv('Sonar') {
-		sh "${tool name: 'SonarScanner', type:'hudson.plugins.sonar.SonarRunnerInstallation'}/bin/sonar-scanner"
+		sh "${tool name: 'SonarScanner', type:'hudson.plugins.sonar.SonarRunnerInstallation'}/bin/sonar-scanner -Dproject.settings=reserva-espacios/sonar-project.properties"
         }
       }
     }
 
     stage('Build') {
       steps {
-        echo "------------>Build<------------"
-	sh './gradlew --b ./microservicio/build.gradle build -x test'
-      }
-    }  
-  }
+        dir("${PROJECT_PATH_BACK}")
+        {
+          sh 'gradle build -x test'
+        }
+      }  
+    }
 
   post {
     always {
