@@ -47,7 +47,14 @@ pipeline {
     }
     
     
+    stage('Compile') {
+      steps{
+        echo "------------>Compile<------------"
+        sh 'gradle --b ./microservicio/build.gradle clean compileJava'
+      }
+    }
  
+
     stage('Compile & Unit Tests') {
       steps{
         	echo "------------>Clean<------------"
