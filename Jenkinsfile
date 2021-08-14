@@ -13,6 +13,7 @@ pipeline {
   //Una sección que define las herramientas “preinstaladas” en Jenkins
   tools {
     jdk 'JDK8_Centos' //Verisión preinstalada en la Configuración del Master
+    gradle 'Gradle5.0_Centos' //Preinstalada en la Configuración del Master
   }
 /*	Versiones disponibles
       JDK8_Mac
@@ -49,15 +50,14 @@ pipeline {
  
     stage('Compile & Unit Tests') {
       steps{
-		sh 'chmod +x ./gradlew'
         	echo "------------>Clean<------------"
-        	sh './gradlew --b ./microservicio/build.gradle clean'
+        	sh 'gradle --b ./microservicio/build.gradle clean'
 		
         	echo "------------>Tests<------------"
-        	sh './gradlew --b ./microservicio/build.gradle test'
+        	sh 'gradle --b ./microservicio/build.gradle test'
 		
 		echo "------------>JacocoTestReport<------------"
-		sh './gradlew --b ./microservicio/build.gradle jacocoTestReport'
+		sh 'gradle --b ./microservicio/build.gradle jacocoTestReport'
       }
     }
 
