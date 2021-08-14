@@ -49,14 +49,15 @@ pipeline {
  
     stage('Compile & Unit Tests') {
       steps{
+		sh 'chmod +x ./gradlew'
         	echo "------------>Clean<------------"
-        	sh 'gradle --b ./microservicio/build.gradle clean'
+        	sh './gradlew --b ./microservicio/build.gradle clean'
 		
         	echo "------------>Tests<------------"
-        	sh 'gradle --b ./microservicio/build.gradle test'
+        	sh './gradlew --b ./microservicio/build.gradle test'
 		
 		echo "------------>JacocoTestReport<------------"
-		sh 'gradle --b ./microservicio/build.gradle jacocoTestReport'
+		sh './gradlew --b ./microservicio/build.gradle jacocoTestReport'
       }
     }
 
