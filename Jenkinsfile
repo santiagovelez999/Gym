@@ -46,14 +46,6 @@ pipeline {
       }
     }
     
-    
-    stage('Compile') {
-      steps{
-        echo "------------>Compile<------------"
-        sh 'gradle --b ./microservicio/build.gradle clean compileJava'
-      }
-    }
- 
 
     stage('Compile & Unit Tests') {
       steps{
@@ -62,9 +54,6 @@ pipeline {
 		
         	echo "------------>Tests<------------"
         	sh 'gradle --b ./microservicio/build.gradle test'
-		
-		echo "------------>JacocoTestReport<------------"
-		sh 'gradle --b ./microservicio/build.gradle jacocoTestReport'
       }
     }
 
