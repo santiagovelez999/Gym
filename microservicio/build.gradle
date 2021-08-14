@@ -81,6 +81,7 @@ dependencies {
 	implementation project.ext.flyway
 
 	implementation project(':infraestructura')
+	implementation 'org.projectlombok:lombok-maven:1.18.20.0'
 }
 
 bootJar {
