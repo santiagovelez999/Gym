@@ -48,7 +48,7 @@ pipeline {
 
    stage('Clean') {
          steps{
-            sh 'gradle --b ./microservicio/build.gradle clean'
+            sh './gradlew --b ./microservicio/build.gradle clean'
       }
    }
 
@@ -56,7 +56,7 @@ pipeline {
     stage('Compile & Unit Tests') {
       steps{
         echo "------------>Compile & Unit Tests<------------"
-	 sh 'gradle --b ./microservicio/build.gradle test'
+	 sh './gradlew --b ./microservicio/build.gradle test'
       }
     }
 
@@ -72,7 +72,7 @@ pipeline {
     stage('Build') {
       steps {
         echo "------------>Build<------------"
-	sh 'gradle --b ./microservicio/build.gradle build -x test'
+	sh './gradlew --b ./microservicio/build.gradle build -x test'
       }
     }  
   }
