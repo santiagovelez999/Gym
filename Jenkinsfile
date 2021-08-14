@@ -48,8 +48,10 @@ pipeline {
     stage('Compile & Unit Tests') {
       steps{
         echo "------------>Compile & Unit Tests<------------"
-	sh './microservicio/gradlew --b ./microservicio/build.gradle clean'
-	sh './microservicio/gradlew --b ./microservicio/build.gradle test'
+	sh 'gradlew --b ./microservicio/dominio/build.gradle clean'
+	sh 'gradlew --b ./microservicio/infraestructura/build.gradle clean'
+	sh 'gradlew --b ./microservicio/dominio/build.gradle test'
+	sh 'gradlew --b ./microservicio/infraestructura/build.gradle test'
       }
     }
 
