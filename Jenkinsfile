@@ -45,11 +45,10 @@ pipeline {
       }
     }
     
-    stage('Compile & Unit Tests') {
+    stage('Test') {
       steps{
         echo "------------>Compile & Unit Tests<------------"
-	sh 'gradle --b ./build.gradle test'
-	sh 'gradle --b ./build.gradle jacocoTestReport'
+	 sh 'npm run test'
       }
     }
 
