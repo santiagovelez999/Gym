@@ -48,7 +48,7 @@ pipeline {
     stage('Test') {
       steps{
         echo "------------>Compile & Unit Tests<------------"
-	 sh 'npm run test'
+	 sh 'gradle --b ./microservicio/build.gradle test'
       }
     }
 
@@ -64,7 +64,7 @@ pipeline {
     stage('Build') {
       steps {
         echo "------------>Build<------------"
-	sh './microservicio/gradlew --b ./microservicio/build.gradle build'
+	sh 'gradle --b ./microservicio/build.gradle build -x test'
       }
     }  
   }
