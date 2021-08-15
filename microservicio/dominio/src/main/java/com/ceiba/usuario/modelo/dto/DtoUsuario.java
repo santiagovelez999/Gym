@@ -12,5 +12,4 @@ public class DtoUsuario {
     private String nombre;
     private String clave;
     private LocalDateTime fechaCreacion;
-
 }
