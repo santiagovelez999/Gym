@@ -6,7 +6,9 @@ import com.ceiba.suscripcion.comando.ComandoSuscripcion;
 import com.ceiba.suscripcion.comando.fabrica.FabricaSuscripcion;
 import com.ceiba.suscripcion.modelo.entidad.Suscripcion;
 import com.ceiba.suscripcion.servicio.ServicioCrearSuscripcion;
+import org.springframework.stereotype.Component;
 
+@Component
 public class ManejadorCrearSuscripcion implements ManejadorComandoRespuesta<ComandoSuscripcion, ComandoRespuesta<Long>> {
 
     private final FabricaSuscripcion fabricaSuscripcion;
