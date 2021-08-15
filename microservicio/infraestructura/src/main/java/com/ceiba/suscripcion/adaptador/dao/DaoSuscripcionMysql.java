@@ -13,7 +13,7 @@ public class DaoSuscripcionMysql implements DaoSuscripcion {
 
     private final CustomNamedParameterJdbcTemplate customNamedParameterJdbcTemplate;
 
-    @SqlStatement(namespace = "suscripcion", value="listar")
+    @SqlStatement(namespace="suscripcion", value="listar")
     private static String sqlListar;
 
     public DaoSuscripcionMysql(CustomNamedParameterJdbcTemplate customNamedParameterJdbcTemplate){
@@ -22,6 +22,6 @@ public class DaoSuscripcionMysql implements DaoSuscripcion {
 
     @Override
     public List<DtoSuscripcion> listar() {
-        return customNamedParameterJdbcTemplate.getNamedParameterJdbcTemplate().query(sqlListar, new MapeoSuscripcion());
+        return this.customNamedParameterJdbcTemplate.getNamedParameterJdbcTemplate().query(sqlListar, new MapeoSuscripcion());
     }
 }
