@@ -1,6 +1,6 @@
 package com.ceiba.suscripcion.controlador;
 
-import com.ceiba.suscripcion.consulta.ManejadorListaSuscripcion;
+import com.ceiba.suscripcion.consulta.ManejadorListarSuscripcion;
 import com.ceiba.suscripcion.modelo.dto.DtoSuscripcion;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -15,16 +15,16 @@ import java.util.List;
 @Api(tags={"Controlador consulta suscripcion usuario"})
 public class ConsultaControladorSuscripcion {
 
-    private final ManejadorListaSuscripcion manejadorListaSuscripcion;
+    private final ManejadorListarSuscripcion manejadorListarSuscripcion;
 
-    public ConsultaControladorSuscripcion(ManejadorListaSuscripcion manejadorListaSuscripcion){
-        this.manejadorListaSuscripcion = manejadorListaSuscripcion;
+    public ConsultaControladorSuscripcion(ManejadorListarSuscripcion manejadorListarSuscripcion){
+        this.manejadorListarSuscripcion = manejadorListarSuscripcion;
     }
 
     @GetMapping
     @ApiOperation("Listar Suscripciones")
-    public List<DtoSuscripcion> List(){
-        return manejadorListaSuscripcion.ejecutar();
+    public List<DtoSuscripcion> Listar(){
+        return manejadorListarSuscripcion.ejecutar();
     }
 
 

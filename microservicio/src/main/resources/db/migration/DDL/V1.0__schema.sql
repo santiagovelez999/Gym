@@ -5,3 +5,13 @@ create table usuario (
  fecha_creacion datetime null,
  primary key (id)
 );
+
+
+create table suscripcion (
+ idSuscripcion int(11) not null auto_increment,
+ idCliente int(11) not null,
+ valorSuscripcion DECIMAL (5,2) not null,
+ tipoSuscripcion varchar(30) not null,
+ fechaRegistro datetime null,
+ primary key (idSuscripcion)
+);
