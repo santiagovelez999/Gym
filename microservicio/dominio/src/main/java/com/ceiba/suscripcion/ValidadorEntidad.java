@@ -34,7 +34,9 @@ public class ValidadorEntidad {
         }
     }
 
-    public static void validarRelacionTipoSuscripcionYValorSuscripcion(String tipoSuscripcion, BigDecimal valorSuscripcion, String mensaje){
+    public static void validarRelacionTipoSuscripcionYValorSuscripcion(String tipoSuscripcion,
+                                                                       BigDecimal valorSuscripcion,
+                                                                       String mensaje){
         if(tipoSuscripcion.equals(TIPO_SUSCRIPCION_POR_MES)){
             if(!valorSuscripcion.equals(VALOR_SUSCRIPCION_MENSUAL)){
                 throw new ExcepcionValorInvalido(mensaje);
@@ -46,18 +48,22 @@ public class ValidadorEntidad {
         }
     }
 
-    public static BigDecimal validarDescuentoValorSuscripcion(String tipoSuscripcion, BigDecimal valorSuscripcion, LocalDateTime fechaRegistro){
+    public static BigDecimal validarDescuentoValorSuscripcion(String tipoSuscripcion,
+                                                              BigDecimal valorSuscripcion,
+                                                              LocalDateTime fechaRegistro){
         if(tipoSuscripcion.equals(TIPO_SUSCRIPCION_POR_MES)){
             List<String> listDays = Arrays.asList(DIAS_SEMANA_DESCUENTO);
-            System.out.println("FECHA: "+ fechaRegistro.getDayOfWeek());
-            System.out.println("VALIDACION: " + listDays.contains(fechaRegistro.getDayOfWeek().toString()));
             if(listDays.contains(fechaRegistro.getDayOfWeek().toString())){
-                 System.out.println("SE HACE DESCUENTO");
-                 BigDecimal valorConDescuento = new BigDecimal((VALOR_SUSCRIPCION_MENSUAL.intValueExact()*7)/100);
-                System.out.println(valorConDescuento);
+                return aplicarDescuentoMensual();
             }
-            System.out.println("NO HACE DESCUENTO");
         }
         return valorSuscripcion;
+    }
+
+    private static BigDecimal aplicarDescuentoMensual(){
+        int descuento = (VALOR_SUSCRIPCION_MENSUAL.intValueExact())*7/100;
+        BigDecimal valorAplicandoDescuento =
+                new BigDecimal(VALOR_SUSCRIPCION_MENSUAL.intValueExact() - descuento);
+        return valorAplicandoDescuento;
     }
 }

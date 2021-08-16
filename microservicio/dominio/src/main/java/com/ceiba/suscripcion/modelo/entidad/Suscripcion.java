@@ -35,11 +35,12 @@ public class Suscripcion {
         validarValorSuscripcion(valorSuscripcion, VALOR_SUSCRIPCION_INVALIDO);
         validarRelacionTipoSuscripcionYValorSuscripcion(tipoSuscripcion, valorSuscripcion,
                 VALOR_TIPO_SUSCRIPCION_Y_VALOR_SUSCRIPCION_INVALIDO);
-        validarDescuentoValorSuscripcion(tipoSuscripcion, valorSuscripcion, fechaRegistro);
+        BigDecimal valorSuscripcionConDescuento = validarDescuentoValorSuscripcion(tipoSuscripcion,
+                valorSuscripcion, fechaRegistro);
 
         this.idSuscripcion = idSuscripcion;
         this.idCliente = idCliente;
-        this.valorSuscripcion = valorSuscripcion;
+        this.valorSuscripcion = valorSuscripcionConDescuento;
         this.tipoSuscripcion = tipoSuscripcion;
         this.fechaRegistro = fechaRegistro;
     }
