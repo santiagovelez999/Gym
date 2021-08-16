@@ -6,11 +6,11 @@ import com.ceiba.suscripcion.puerto.repositorio.RepositorioSuscripcion;
 import com.ceiba.usuario.modelo.entidad.Usuario;
 
 import java.time.LocalDateTime;
+import java.util.HashMap;
 
 public class ServicioCrearSuscripcion {
 
     private static String EL_USUARIO_YA_TIENE_SUSCRIPCION_ACTIVA = "El usuario xxx ya tiene una suscripción activa, aun tiene (yyy) días disponibles.";
-
 
     private final RepositorioSuscripcion repositorioSuscripcion;
 
@@ -19,15 +19,16 @@ public class ServicioCrearSuscripcion {
 
     }
 
-    public Long ejecutar(Suscripcion suscripcion){
+    public HashMap<String, String> ejecutar(Suscripcion suscripcion){
         validarExistenciaPrevia(suscripcion);
-        return this.repositorioSuscripcion.crear(suscripcion);
+        this.repositorioSuscripcion.crear(suscripcion);
+        return armarRespuesta(suscripcion);
     }
 
     private void validarExistenciaPrevia(Suscripcion suscripcion) {
         Integer numeroDias =  this.repositorioSuscripcion.existe(suscripcion.getIdCliente());
         if(numeroDias != null && numeroDias < 0){
-            Integer numeroDiasPositivo = numeroDias.intValue() * +1;
+            Integer numeroDiasPositivo = numeroDias.intValue() * -1;
             throw new ExcepcionDuplicidad(duplicidadSuscripcionActiva(suscripcion.getIdCliente(),
                     numeroDiasPositivo));
         }
@@ -41,4 +42,10 @@ public class ServicioCrearSuscripcion {
         return remplazarDiasFaltantesSuscripcion;
     }
 
+    private HashMap<String, String> armarRespuesta(Suscripcion suscripcion){
+        HashMap<String, String> respuestaGuardado = new HashMap<>();
+        respuestaGuardado.put("descuento", suscripcion.mostrarDescuento());
+        respuestaGuardado.put("fechaDeVencimientoDeLaSuscripcion", suscripcion.calcularFechaVencimientoSuscripcion());
+        return respuestaGuardado;
+    }
 }

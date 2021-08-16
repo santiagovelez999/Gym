@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.HashMap;
+
 @RestController
 @RequestMapping("/suscripcion")
 @Api(tags = { "Controlador comando suscripcion"})
@@ -27,7 +29,7 @@ public class ComandoControladorSuscripcion {
 
     @PostMapping
     @ApiOperation("Crear Suscripcion")
-    public ComandoRespuesta<Long> crear(@RequestBody ComandoSuscripcion comandoSuscripcion) {
+    public ComandoRespuesta<HashMap<String, String>> crear(@RequestBody ComandoSuscripcion comandoSuscripcion) {
         return manejadorCrearSuscripcion.ejecutar(comandoSuscripcion);
     }
 }

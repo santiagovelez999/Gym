@@ -10,6 +10,9 @@ import static com.ceiba.suscripcion.ValidadorEntidad.validarTipoSuscripcion;
 import static com.ceiba.suscripcion.ValidadorEntidad.validarValorSuscripcion;
 import static com.ceiba.suscripcion.ValidadorEntidad.validarRelacionTipoSuscripcionYValorSuscripcion;
 import static com.ceiba.suscripcion.ValidadorEntidad.validarDescuentoValorSuscripcion;
+import static com.ceiba.suscripcion.ValidadorEntidad.calcularFechaDeVencimientoDeSuscripcion;
+import static com.ceiba.suscripcion.ValidadorEntidad.mostrarDescuentoPorSuscripcion;
+
 
 @Getter
 public class Suscripcion {
@@ -43,5 +46,13 @@ public class Suscripcion {
         this.valorSuscripcion = valorSuscripcionConDescuento;
         this.tipoSuscripcion = tipoSuscripcion;
         this.fechaRegistro = fechaRegistro;
+    }
+
+    public String calcularFechaVencimientoSuscripcion(){
+        return calcularFechaDeVencimientoDeSuscripcion(getFechaRegistro(), getTipoSuscripcion());
+    }
+
+    public String mostrarDescuento(){
+        return mostrarDescuentoPorSuscripcion(getTipoSuscripcion());
     }
 }

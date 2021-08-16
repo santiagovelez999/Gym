@@ -4,6 +4,7 @@ import com.ceiba.dominio.excepcion.ExcepcionValorInvalido;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Arrays;
 import java.util.List;
 
@@ -12,11 +13,16 @@ public class ValidadorEntidad {
 
     private static final String TIPO_SUSCRIPCION_POR_MES = "XXX";
     private static final String TIPO_SUSCRIPCION_POR_QUINCENA = "XV";
+    private static final int DIAS_MES = 30;
+    private static final int DIAS_QUINCENA = 15;
 
     private static final BigDecimal VALOR_SUSCRIPCION_MENSUAL = new BigDecimal(70000.00);
     private static final BigDecimal VALOR_SUSCRIPCION_QUINCENAL = new BigDecimal(40000.00);
+    private static String VALOR_DESCUENTO = "$4900";
 
     private static final String[] DIAS_SEMANA_DESCUENTO = {"WEDNESDAY","THURSDAY"};
+
+    private static final String ERROR_ENTIDAD = "HA OCURRIDO UN ERROR";
 
     private ValidadorEntidad(){};
 
@@ -65,5 +71,27 @@ public class ValidadorEntidad {
         BigDecimal valorAplicandoDescuento =
                 new BigDecimal(VALOR_SUSCRIPCION_MENSUAL.intValueExact() - descuento);
         return valorAplicandoDescuento;
+    }
+
+    public static String calcularFechaDeVencimientoDeSuscripcion(LocalDateTime fechaRegistro,
+                                                                        String tipoSuscripcion){
+        DateTimeFormatter formatoFecha = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        if(tipoSuscripcion.equals(TIPO_SUSCRIPCION_POR_MES)){
+            return fechaRegistro.plusDays(DIAS_MES).format(formatoFecha);
+        }else if (tipoSuscripcion.equals(TIPO_SUSCRIPCION_POR_QUINCENA)){
+            return fechaRegistro.plusDays(DIAS_QUINCENA).format(formatoFecha);
+        }else {
+            return ERROR_ENTIDAD;
+        }
+    }
+
+    public static String mostrarDescuentoPorSuscripcion(String tipoSuscripcion){
+        if(tipoSuscripcion.equals(TIPO_SUSCRIPCION_POR_MES)){
+            return VALOR_DESCUENTO;
+        }else if(tipoSuscripcion.equals(TIPO_SUSCRIPCION_POR_QUINCENA)){
+            return "$0";
+        }else{
+            return ERROR_ENTIDAD;
+        }
     }
 }
