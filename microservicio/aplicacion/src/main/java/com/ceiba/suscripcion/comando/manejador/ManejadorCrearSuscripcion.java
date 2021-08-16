@@ -20,7 +20,6 @@ public class ManejadorCrearSuscripcion implements ManejadorComandoRespuesta<Coma
         this.servicioCrearSuscripcion = servicioCrearSuscripcion;
     }
 
-    @Override
     public ComandoRespuesta<Long> ejecutar(ComandoSuscripcion comandoSuscripcion) {
         Suscripcion suscripcion = fabricaSuscripcion.crear(comandoSuscripcion);
         return new ComandoRespuesta<>(this.servicioCrearSuscripcion.ejecutar(suscripcion));
