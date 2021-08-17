@@ -1,46 +1,44 @@
 package com.ceiba.suscripcion.servicio;
 
-import com.ceiba.suscripcion.modelo.entidad.Suscripcion;
+import com.ceiba.BasePrueba;
+import com.ceiba.dominio.excepcion.ExcepcionLongitudValor;
+import com.ceiba.dominio.excepcion.ExcepcionValorInvalido;
+import com.ceiba.suscripcion.servicio.testdatabuilder.SuscripcionTestDataBuilder;
+import org.junit.Test;
 
 import java.math.BigDecimal;
-import java.time.LocalDateTime;
 
 public class ServicioCrearSuscripcionTest {
 
-    private Long idSuscripcion;
-    private Long idCliente;
-    private BigDecimal valorSuscripcion;
-    private String tipoSuscripcion;
-    private LocalDateTime fechaRegistro;
+    @Test
+    public void validarTipoSuscripcionTest(){
+        SuscripcionTestDataBuilder suscripcionTestDataBuilder = new
+                SuscripcionTestDataBuilder().conTipoSuscripcion("XXI");
 
-    public ServicioCrearSuscripcionTest(){
-          idCliente = 1L;
-          valorSuscripcion = new BigDecimal(70000);
-          tipoSuscripcion = "XXX";
-          fechaRegistro = LocalDateTime.now();
+        BasePrueba.assertThrows(() -> suscripcionTestDataBuilder.build(),
+                ExcepcionValorInvalido.class,
+                "El tipo de suscripción es invalido");
     }
 
-    public ServicioCrearSuscripcionTest conIdCliente(Long idCliente){
-        this.idCliente = idCliente;
-        return this;
+    @Test
+    public void validarValorSuscripcionTest(){
+        SuscripcionTestDataBuilder suscripcionTestDataBuilder = new
+                SuscripcionTestDataBuilder().conValorSuscripcion(new BigDecimal(80000));
+
+        BasePrueba.assertThrows(() -> suscripcionTestDataBuilder.build(),
+                ExcepcionValorInvalido.class,
+                "El valor de la suscripción no es valido");
     }
 
-    public ServicioCrearSuscripcionTest conValorSuscripcion(BigDecimal valorSuscripcion){
-        this.valorSuscripcion = valorSuscripcion;
-        return this;
-    }
+    @Test
+    public void validarRelacionTipoSuscripcionYValorSuscripcionTest(){
+        SuscripcionTestDataBuilder suscripcionTestDataBuilder = new
+                SuscripcionTestDataBuilder()
+                .conTipoSuscripcion("XV")
+                .conValorSuscripcion(new BigDecimal(70000));
 
-    public ServicioCrearSuscripcionTest conTipoSuscripcion(String tipoSuscripcion){
-        this.tipoSuscripcion = tipoSuscripcion;
-        return this;
-    }
-
-    public ServicioCrearSuscripcionTest conFechaRegistro(LocalDateTime fechaRegistro){
-        this.fechaRegistro = fechaRegistro;
-        return this;
-    }
-
-    public Suscripcion build() {
-        return new Suscripcion(idSuscripcion, idCliente, valorSuscripcion, tipoSuscripcion, fechaRegistro);
+        BasePrueba.assertThrows(() -> suscripcionTestDataBuilder.build(),
+                ExcepcionValorInvalido.class,
+                "El valor de la suscripción no es valido para el tipo de suscripción");
     }
 }
