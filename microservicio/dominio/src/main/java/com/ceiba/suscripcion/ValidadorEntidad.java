@@ -58,8 +58,7 @@ public class ValidadorEntidad {
                                                               BigDecimal valorSuscripcion,
                                                               LocalDateTime fechaRegistro){
         if(tipoSuscripcion.equals(TIPO_SUSCRIPCION_POR_MES)){
-            List<String> listDays = Arrays.asList(DIAS_SEMANA_DESCUENTO);
-            if(listDays.contains(fechaRegistro.getDayOfWeek().toString())){
+            if(validarSiLaFechaTieneDescuento(fechaRegistro)){
                 return aplicarDescuentoMensual();
             }
         }
@@ -85,13 +84,22 @@ public class ValidadorEntidad {
         }
     }
 
-    public static String mostrarDescuentoPorSuscripcion(String tipoSuscripcion){
+    public static String mostrarDescuentoPorSuscripcion(String tipoSuscripcion, LocalDateTime fechaRegistro){
         if(tipoSuscripcion.equals(TIPO_SUSCRIPCION_POR_MES)){
-            return VALOR_DESCUENTO;
+            if(validarSiLaFechaTieneDescuento(fechaRegistro)){
+                return VALOR_DESCUENTO;
+            }else{
+                return "$0";
+            }
         }else if(tipoSuscripcion.equals(TIPO_SUSCRIPCION_POR_QUINCENA)){
             return "$0";
         }else{
             return ERROR_ENTIDAD;
         }
+    }
+
+    private static boolean validarSiLaFechaTieneDescuento(LocalDateTime fechaRegistro){
+        List<String> listDays = Arrays.asList(DIAS_SEMANA_DESCUENTO);
+        return listDays.contains(fechaRegistro.getDayOfWeek().toString());
     }
 }

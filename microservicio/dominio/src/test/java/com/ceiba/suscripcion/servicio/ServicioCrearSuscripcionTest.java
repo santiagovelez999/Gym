@@ -110,6 +110,7 @@ public class ServicioCrearSuscripcionTest {
     public void mostrarDescuentoAplicadoPorSuscripcionTest(){
         Suscripcion suscripcionTest = new
                 SuscripcionTestDataBuilder().
+                conFechaRegistro(FECHA_REGISTRO_CON_DESCUENTO).
                 conTipoSuscripcion("XXX").
                 build();
 

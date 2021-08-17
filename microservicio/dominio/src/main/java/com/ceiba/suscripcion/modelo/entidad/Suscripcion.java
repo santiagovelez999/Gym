@@ -53,6 +53,6 @@ public class Suscripcion {
     }
 
     public String mostrarDescuento(){
-        return mostrarDescuentoPorSuscripcion(getTipoSuscripcion());
+        return mostrarDescuentoPorSuscripcion(getTipoSuscripcion(), fechaRegistro);
     }
 }
