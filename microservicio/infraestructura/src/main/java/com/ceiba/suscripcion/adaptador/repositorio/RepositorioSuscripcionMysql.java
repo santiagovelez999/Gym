@@ -65,7 +65,7 @@ public class RepositorioSuscripcionMysql implements RepositorioSuscripcion {
         LocalDateTime fechaReciente = LocalDateTime.parse(arregloDeValores[0], formato);
         String tipoServicio = arregloDeValores[1].trim();
         LocalDateTime fechaConSumaDias= fechaReciente.plusDays(tipoServicio.equals(TIPO_SERVICIO_MENSUAL) ?DIAS_MENSUALES:DIAS_QUINCENALES);
-        Long dias = DAYS.between(fechaReciente, fechaConSumaDias);
+        Long dias = DAYS.between(LocalDateTime.now(), fechaConSumaDias);
         return dias == null ? null : Math.toIntExact(dias);
     }
 }
