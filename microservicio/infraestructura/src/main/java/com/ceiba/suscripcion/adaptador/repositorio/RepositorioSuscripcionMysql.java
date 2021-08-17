@@ -46,7 +46,7 @@ public class RepositorioSuscripcionMysql implements RepositorioSuscripcion {
             paramSource.addValue("idCliente", idCliente);
             fechaRecienteYTipoSuscripcion =  this.customNamedParameterJdbcTemplate.
                     getNamedParameterJdbcTemplate().queryForObject(sqlExiste,paramSource, String.class);
-            if(!fechaRecienteYTipoSuscripcion.isEmpty() && fechaRecienteYTipoSuscripcion != null){
+            if(!fechaRecienteYTipoSuscripcion.isEmpty() && fechaRecienteYTipoSuscripcion != null && !fechaRecienteYTipoSuscripcion.equals("/XXX")){
                 cantidadDiasActivaSuscripcion = convertirFechaADias(fechaRecienteYTipoSuscripcion);
             }
         }catch (NullPointerException e){

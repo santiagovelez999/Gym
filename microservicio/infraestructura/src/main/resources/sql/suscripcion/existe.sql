@@ -1,1 +1,1 @@
-SELECT concat(max(fechaRegistro),'/',tipoSuscripcion)  FROM gym.suscripcion where idCliente = :idCliente;
+SELECT concat(max(fechaRegistro),'/',tipoSuscripcion)  FROM suscripcion where idCliente = :idCliente;

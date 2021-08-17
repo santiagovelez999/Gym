@@ -41,6 +41,6 @@ public class ComandoControladorSuscripcionTest {
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(suscripcion)))
                 .andExpect(status().isOk())
-                .andExpect(content().json("'valor':{'descuento':'$4900','fechaDeVencimientoDeLaSuscripcion':'27/08/2021'}"));
+                .andExpect(content().json("{'valor':{'descuento':'$4900','fechaDeVencimientoDeLaSuscripcion':'11/09/2021'}}"));
     }
 }
