@@ -9,6 +9,11 @@ import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.stereotype.Repository;
 
 import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
+import java.util.List;
+
+import static java.time.temporal.ChronoUnit.DAYS;
 
 @Repository
 public class RepositorioSuscripcionMysql implements RepositorioSuscripcion {
@@ -34,17 +39,33 @@ public class RepositorioSuscripcionMysql implements RepositorioSuscripcion {
 
     @Override
     public Integer existe(Long idCliente) {
-        Integer NumeroDeDiasFaltantes = null;
+        String fechaRecienteYTipoSuscripcion = "";
+        Integer cantidadDiasActivaSuscripcion = null;
         try {
             MapSqlParameterSource paramSource = new MapSqlParameterSource();
             paramSource.addValue("idCliente", idCliente);
-            NumeroDeDiasFaltantes =  this.customNamedParameterJdbcTemplate.
-                    getNamedParameterJdbcTemplate().queryForObject(sqlExiste,paramSource,
-                            Integer.class);
-        }catch (EmptyResultDataAccessException e){
-            NumeroDeDiasFaltantes = null;
+            fechaRecienteYTipoSuscripcion =  this.customNamedParameterJdbcTemplate.
+                    getNamedParameterJdbcTemplate().queryForObject(sqlExiste,paramSource, String.class);
+            if(!fechaRecienteYTipoSuscripcion.isEmpty() && fechaRecienteYTipoSuscripcion != null){
+                cantidadDiasActivaSuscripcion = convertirFechaADias(fechaRecienteYTipoSuscripcion);
+            }
+        }catch (NullPointerException e){
+            cantidadDiasActivaSuscripcion = null;
         }
-        return NumeroDeDiasFaltantes;
+        return cantidadDiasActivaSuscripcion;
+    }
 
+    private Integer convertirFechaADias(String fechaRecienteYTipoSuscripcion){
+        int DIAS_MENSUALES = 30;
+        int DIAS_QUINCENALES = 15;
+        String SEPARADOR = "/";
+        String TIPO_SERVICIO_MENSUAL = "XXX";
+        DateTimeFormatter formato = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+        String[] arregloDeValores = fechaRecienteYTipoSuscripcion.split(SEPARADOR);
+        LocalDateTime fechaReciente = LocalDateTime.parse(arregloDeValores[0], formato);
+        String tipoServicio = arregloDeValores[1].trim();
+        LocalDateTime fechaConSumaDias= fechaReciente.plusDays(tipoServicio.equals(TIPO_SERVICIO_MENSUAL) ?DIAS_MENSUALES:DIAS_QUINCENALES);
+        Long dias = DAYS.between(fechaReciente, fechaConSumaDias);
+        return dias == null ? null : Math.toIntExact(dias);
     }
 }

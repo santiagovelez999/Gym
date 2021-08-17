@@ -27,10 +27,9 @@ public class ServicioCrearSuscripcion {
 
     private void validarExistenciaPrevia(Suscripcion suscripcion) {
         Integer numeroDias =  this.repositorioSuscripcion.existe(suscripcion.getIdCliente());
-        if(numeroDias != null && numeroDias < 0){
-            Integer numeroDiasPositivo = numeroDias.intValue() * -1;
+        if(numeroDias != null && numeroDias > 0){
             throw new ExcepcionDuplicidad(duplicidadSuscripcionActiva(suscripcion.getIdCliente(),
-                    numeroDiasPositivo));
+                    numeroDias));
         }
     }
 

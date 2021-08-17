@@ -1,2 +1,1 @@
-select DATEDIFF(fechaRegistro, now())
-from suscripcion where idCliente = :idCliente and fechaRegistro < now();
+SELECT concat(max(fechaRegistro),'/',tipoSuscripcion)  FROM gym.suscripcion where idCliente = :idCliente;
