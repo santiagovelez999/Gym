@@ -3,9 +3,7 @@ package com.ceiba.suscripcion.servicio;
 import com.ceiba.dominio.excepcion.ExcepcionDuplicidad;
 import com.ceiba.suscripcion.modelo.entidad.Suscripcion;
 import com.ceiba.suscripcion.puerto.repositorio.RepositorioSuscripcion;
-import com.ceiba.usuario.modelo.entidad.Usuario;
 
-import java.time.LocalDateTime;
 import java.util.HashMap;
 
 public class ServicioCrearSuscripcion {
