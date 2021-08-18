@@ -1,0 +1,1 @@
+SELECT concat(max(fechaRegistro),'/',tipoSuscripcion)  FROM suscripcion where idCliente = :idCliente;
