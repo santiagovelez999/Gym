@@ -4,15 +4,11 @@ import com.ceiba.infraestructura.jdbc.CustomNamedParameterJdbcTemplate;
 import com.ceiba.infraestructura.jdbc.sqlstatement.SqlStatement;
 import com.ceiba.suscripcion.modelo.entidad.Suscripcion;
 import com.ceiba.suscripcion.puerto.repositorio.RepositorioSuscripcion;
-import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.stereotype.Repository;
 
 import java.time.LocalDateTime;
-import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
-import java.util.List;
-import java.util.Locale;
 
 import static java.time.temporal.ChronoUnit.DAYS;
 
