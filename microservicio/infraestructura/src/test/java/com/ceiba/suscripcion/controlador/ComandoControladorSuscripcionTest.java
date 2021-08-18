@@ -17,6 +17,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -42,5 +43,18 @@ public class ComandoControladorSuscripcionTest {
                         .content(objectMapper.writeValueAsString(suscripcion)))
                 .andExpect(status().isOk())
                 .andExpect(content().json("{'valor':{'descuento':'$4900','fechaDeVencimientoDeLaSuscripcion':'11/09/2021'}}"));
+    }
+
+    @Test
+    public void actualizar() throws Exception{
+        // arrange
+        Long id = 1L;
+        ComandoSuscripcion suscripcion = new ComandoSuscripcionTestDataBuilder().build();
+
+        // act - assert
+        mocMvc.perform(put("/suscripcion/{id}",id)
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(suscripcion)))
+                .andExpect(status().isOk());
     }
 }

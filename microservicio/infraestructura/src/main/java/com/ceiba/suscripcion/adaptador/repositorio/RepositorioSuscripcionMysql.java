@@ -26,6 +26,9 @@ public class RepositorioSuscripcionMysql implements RepositorioSuscripcion {
     @SqlStatement(namespace="suscripcion", value="existe")
     private static String sqlExiste;
 
+    @SqlStatement(namespace="suscripcion", value="actualizar")
+    private static String sqlActualizar;
+
 
     public RepositorioSuscripcionMysql(CustomNamedParameterJdbcTemplate customNamedParameterJdbcTemplate){
         this.customNamedParameterJdbcTemplate = customNamedParameterJdbcTemplate;
@@ -35,6 +38,11 @@ public class RepositorioSuscripcionMysql implements RepositorioSuscripcion {
     @Override
     public Long crear(Suscripcion suscripcion) {
         return this.customNamedParameterJdbcTemplate.crear(suscripcion, sqlCrear);
+    }
+
+    @Override
+    public void actualizar(Suscripcion suscripcion) {
+        this.customNamedParameterJdbcTemplate.actualizar(suscripcion, sqlActualizar);
     }
 
     @Override
