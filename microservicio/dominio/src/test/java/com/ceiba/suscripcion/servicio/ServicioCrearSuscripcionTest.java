@@ -7,17 +7,11 @@ import com.ceiba.dominio.excepcion.ExcepcionValorInvalido;
 import com.ceiba.suscripcion.modelo.entidad.Suscripcion;
 import com.ceiba.suscripcion.puerto.repositorio.RepositorioSuscripcion;
 import com.ceiba.suscripcion.servicio.testdatabuilder.SuscripcionTestDataBuilder;
-import com.ceiba.usuario.modelo.entidad.Usuario;
-import com.ceiba.usuario.puerto.repositorio.RepositorioUsuario;
-import com.ceiba.usuario.servicio.ServicioCrearUsuario;
-import com.ceiba.usuario.servicio.testdatabuilder.UsuarioTestDataBuilder;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mockito;
-
 import java.math.BigDecimal;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 public class ServicioCrearSuscripcionTest {
@@ -129,16 +123,17 @@ public class ServicioCrearSuscripcionTest {
     }
 
 
-    /*@Test
+    @Test
     public void validarUsuarioExistenciaSuscripcionPreviaTest() {
         // arrange
         Suscripcion suscripcion = new SuscripcionTestDataBuilder().
+                conFechaRegistro(FECHA_REGISTRO_CON_DESCUENTO).
                 build();
         RepositorioSuscripcion repositorioSuscripcion = Mockito.mock(RepositorioSuscripcion.class);
-        Mockito.when(repositorioSuscripcion.existe(Mockito.anyLong())).thenReturn(3);
+        Mockito.when(repositorioSuscripcion.existe(Mockito.anyLong())).thenReturn(24);
         ServicioCrearSuscripcion servicioCrearSuscripcion = new ServicioCrearSuscripcion(repositorioSuscripcion);
-        // act - assert
+        // act
         BasePrueba.assertThrows(() -> servicioCrearSuscripcion.ejecutar(suscripcion),
-                ExcepcionDuplicidad.class,"El usuario 1 ya tiene una suscripción activa, aun tiene (5) días disponibles.");
-    }*/
+                ExcepcionDuplicidad.class,"El usuario 50 ya tiene una suscripción activa, aun tiene (24) días disponibles.");
+    }
 }

@@ -15,7 +15,7 @@ public interface RepositorioSuscripcion {
     Long crear(Suscripcion suscripcion);
 
     /**
-     * Permite validar si existe un usuario con un nombre
+     * Permite validar si existe un usuario con una suscripcion activa
      * @param idCliente
      * @return si existe o no
      */
