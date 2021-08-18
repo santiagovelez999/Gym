@@ -9,10 +9,11 @@ import com.ceiba.suscripcion.servicio.ServicioCrearSuscripcion;
 import org.springframework.stereotype.Component;
 
 import java.util.HashMap;
+import java.util.Map;
 
 
 @Component
-public class ManejadorCrearSuscripcion implements ManejadorComandoRespuesta<ComandoSuscripcion, ComandoRespuesta<HashMap<String, String>>> {
+public class ManejadorCrearSuscripcion implements ManejadorComandoRespuesta<ComandoSuscripcion, ComandoRespuesta<Map<String, String>>> {
 
     private final FabricaSuscripcion fabricaSuscripcion;
     private final ServicioCrearSuscripcion servicioCrearSuscripcion;
@@ -23,7 +24,7 @@ public class ManejadorCrearSuscripcion implements ManejadorComandoRespuesta<Coma
         this.servicioCrearSuscripcion = servicioCrearSuscripcion;
     }
 
-    public ComandoRespuesta<HashMap<String, String>> ejecutar(ComandoSuscripcion comandoSuscripcion) {
+    public ComandoRespuesta<Map<String, String>> ejecutar(ComandoSuscripcion comandoSuscripcion) {
         Suscripcion suscripcion = fabricaSuscripcion.crear(comandoSuscripcion);
         return new ComandoRespuesta<>(this.servicioCrearSuscripcion.ejecutar(suscripcion));
     }

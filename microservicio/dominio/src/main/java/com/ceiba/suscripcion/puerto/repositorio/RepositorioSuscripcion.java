@@ -1,9 +1,6 @@
 package com.ceiba.suscripcion.puerto.repositorio;
 
 import com.ceiba.suscripcion.modelo.entidad.Suscripcion;
-import com.ceiba.usuario.modelo.entidad.Usuario;
-
-import java.time.LocalDateTime;
 
 public interface RepositorioSuscripcion {
 

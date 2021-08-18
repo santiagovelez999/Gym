@@ -9,7 +9,7 @@ import java.util.Arrays;
 import java.util.List;
 
 
-public class ValidadorEntidad {
+public final class ValidadorEntidad {
 
     private static final String TIPO_SUSCRIPCION_POR_MES = "XXX";
     private static final String TIPO_SUSCRIPCION_POR_QUINCENA = "XV";
@@ -18,13 +18,13 @@ public class ValidadorEntidad {
 
     private static final BigDecimal VALOR_SUSCRIPCION_MENSUAL = new BigDecimal("70000");
     private static final BigDecimal VALOR_SUSCRIPCION_QUINCENAL = new BigDecimal("40000");
-    private static String VALOR_DESCUENTO = "$4900";
+    private static String valorDescuento = "$4900";
 
     private static final String[] DIAS_SEMANA_DESCUENTO = {"WEDNESDAY","THURSDAY"};
 
     private static final String ERROR_ENTIDAD = "HA OCURRIDO UN ERROR";
 
-    private ValidadorEntidad(){};
+    private ValidadorEntidad(){}
 
     public static void validarTipoSuscripcion(String tipoSuscripcion, String mensaje){
          if(!tipoSuscripcion.equals(TIPO_SUSCRIPCION_POR_MES) &&
@@ -43,33 +43,27 @@ public class ValidadorEntidad {
     public static void validarRelacionTipoSuscripcionYValorSuscripcion(String tipoSuscripcion,
                                                                        BigDecimal valorSuscripcion,
                                                                        String mensaje){
-        if(tipoSuscripcion.equals(TIPO_SUSCRIPCION_POR_MES)){
-            if(!valorSuscripcion.equals(VALOR_SUSCRIPCION_MENSUAL)){
+        if(tipoSuscripcion.equals(TIPO_SUSCRIPCION_POR_MES) &&
+                !valorSuscripcion.equals(VALOR_SUSCRIPCION_MENSUAL)){
                 throw new ExcepcionValorInvalido(mensaje);
-            }
-        }else if(tipoSuscripcion.equals(TIPO_SUSCRIPCION_POR_QUINCENA)){
-            if(!valorSuscripcion.equals(VALOR_SUSCRIPCION_QUINCENAL)){
+        }else if(tipoSuscripcion.equals(TIPO_SUSCRIPCION_POR_QUINCENA) &&
+                !valorSuscripcion.equals(VALOR_SUSCRIPCION_QUINCENAL)){
                 throw new ExcepcionValorInvalido(mensaje);
-            }
         }
     }
 
     public static BigDecimal validarDescuentoValorSuscripcion(String tipoSuscripcion,
                                                               BigDecimal valorSuscripcion,
                                                               LocalDateTime fechaRegistro){
-        if(tipoSuscripcion.equals(TIPO_SUSCRIPCION_POR_MES)){
-            if(validarSiLaFechaTieneDescuento(fechaRegistro)){
+        if(tipoSuscripcion.equals(TIPO_SUSCRIPCION_POR_MES) && validarSiLaFechaTieneDescuento(fechaRegistro)){
                 return aplicarDescuentoMensual();
-            }
         }
         return valorSuscripcion;
     }
 
     private static BigDecimal aplicarDescuentoMensual(){
         int descuento = (VALOR_SUSCRIPCION_MENSUAL.intValueExact())*7/100;
-        BigDecimal valorAplicandoDescuento =
-                new BigDecimal(VALOR_SUSCRIPCION_MENSUAL.intValueExact() - descuento);
-        return valorAplicandoDescuento;
+        return new BigDecimal(VALOR_SUSCRIPCION_MENSUAL.intValueExact() - descuento);
     }
 
     public static String calcularFechaDeVencimientoDeSuscripcion(LocalDateTime fechaRegistro,
@@ -87,7 +81,7 @@ public class ValidadorEntidad {
     public static String mostrarDescuentoPorSuscripcion(String tipoSuscripcion, LocalDateTime fechaRegistro){
         if(tipoSuscripcion.equals(TIPO_SUSCRIPCION_POR_MES)){
             if(validarSiLaFechaTieneDescuento(fechaRegistro)){
-                return VALOR_DESCUENTO;
+                return valorDescuento;
             }else{
                 return "$0";
             }

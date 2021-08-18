@@ -4,13 +4,11 @@ import com.ceiba.ComandoRespuesta;
 import com.ceiba.suscripcion.comando.ComandoSuscripcion;
 import com.ceiba.suscripcion.comando.manejador.ManejadorActualizarSuscripcion;
 import com.ceiba.suscripcion.comando.manejador.ManejadorCrearSuscripcion;
-import com.ceiba.usuario.comando.ComandoUsuario;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.HashMap;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/suscripcion")
@@ -30,7 +28,7 @@ public class ComandoControladorSuscripcion {
 
     @PostMapping
     @ApiOperation("Crear Suscripcion")
-    public ComandoRespuesta<HashMap<String, String>> crear(@RequestBody ComandoSuscripcion comandoSuscripcion) {
+    public ComandoRespuesta<Map<String, String>> crear(@RequestBody ComandoSuscripcion comandoSuscripcion) {
         return manejadorCrearSuscripcion.ejecutar(comandoSuscripcion);
     }
 
