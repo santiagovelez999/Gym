@@ -12,6 +12,7 @@ import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
+import java.util.Locale;
 
 import static java.time.temporal.ChronoUnit.DAYS;
 
@@ -55,7 +56,7 @@ public class RepositorioSuscripcionMysql implements RepositorioSuscripcion {
             fechaRecienteYTipoSuscripcion =  this.customNamedParameterJdbcTemplate.
                     getNamedParameterJdbcTemplate().queryForObject(sqlExiste,paramSource, String.class);
             if(!fechaRecienteYTipoSuscripcion.isEmpty() && fechaRecienteYTipoSuscripcion != null && !fechaRecienteYTipoSuscripcion.equals("/XXX")){
-                cantidadDiasActivaSuscripcion = convertirFechaADias(fechaRecienteYTipoSuscripcion);
+                cantidadDiasActivaSuscripcion = prepararFecha(fechaRecienteYTipoSuscripcion);
             }
         }catch (NullPointerException e){
             cantidadDiasActivaSuscripcion = null;
@@ -63,17 +64,32 @@ public class RepositorioSuscripcionMysql implements RepositorioSuscripcion {
         return cantidadDiasActivaSuscripcion;
     }
 
-    private Integer convertirFechaADias(String fechaRecienteYTipoSuscripcion){
+    private Integer prepararFecha(String fechaRecienteYTipoSuscripcion){
+        String SEPARADOR = "/";
+        String[] arregloDeValores = fechaRecienteYTipoSuscripcion.split(SEPARADOR);
+        String fecha = arregloDeValores[0].trim();
+        String tipoServicio = arregloDeValores[1].trim();
+        return convertirFechaADias(fecha, tipoServicio);
+    }
+
+    private Integer convertirFechaADias(String fecha, String tipoServicio){
         int DIAS_MENSUALES = 30;
         int DIAS_QUINCENALES = 15;
-        String SEPARADOR = "/";
         String TIPO_SERVICIO_MENSUAL = "XXX";
         DateTimeFormatter formato = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
-        String[] arregloDeValores = fechaRecienteYTipoSuscripcion.split(SEPARADOR);
-        LocalDateTime fechaReciente = LocalDateTime.parse(arregloDeValores[0], formato);
-        String tipoServicio = arregloDeValores[1].trim();
+        fecha = validarNanoSegundosFecha(fecha);
+        LocalDateTime fechaReciente = LocalDateTime.parse(fecha, formato);
         LocalDateTime fechaConSumaDias= fechaReciente.plusDays(tipoServicio.equals(TIPO_SERVICIO_MENSUAL) ?DIAS_MENSUALES:DIAS_QUINCENALES);
         Long dias = DAYS.between(LocalDateTime.now(), fechaConSumaDias);
         return dias == null ? null : Math.toIntExact(dias);
+    }
+
+    private String validarNanoSegundosFecha(String fecha){
+        int CANTIDAD_DIGITOS_PERMITIDOS_FECHA = 19;
+        if(fecha.length() > CANTIDAD_DIGITOS_PERMITIDOS_FECHA){
+            return fecha.substring(0, CANTIDAD_DIGITOS_PERMITIDOS_FECHA);
+        }else{
+            return fecha;
+        }
     }
 }

@@ -35,7 +35,9 @@ public class ComandoControladorSuscripcionTest {
     @Test
     public void crear() throws Exception{
         // arrange
-        ComandoSuscripcion suscripcion = new ComandoSuscripcionTestDataBuilder().build();
+        ComandoSuscripcion suscripcion = new ComandoSuscripcionTestDataBuilder().
+                conIdCliente(10L).
+                build();
 
         // act - assert
         mocMvc.perform(post("/suscripcion")
@@ -48,7 +50,7 @@ public class ComandoControladorSuscripcionTest {
     @Test
     public void actualizar() throws Exception{
         // arrange
-        Long id = 1L;
+        Long id = 50L;
         ComandoSuscripcion suscripcion = new ComandoSuscripcionTestDataBuilder().build();
 
         // act - assert

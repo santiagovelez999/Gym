@@ -15,19 +15,23 @@ public class ComandoSuscripcionTestDataBuilder {
         private LocalDateTime fechaRegistro;
 
         public ComandoSuscripcionTestDataBuilder(){
-            idCliente = 1L;
+            idCliente = 50L;
             valorSuscripcion = new BigDecimal(70000);
             tipoSuscripcion = "XXX";
-            fechaRegistro =  cambiarFormatoFecha("2021-08-12 12:00:00");
+            fechaRegistro =  cambiarFormatoFecha();
+        }
+
+        public ComandoSuscripcionTestDataBuilder conIdCliente(Long idCliente){
+            this.idCliente = idCliente;
+            return this;
         }
 
         public ComandoSuscripcion build() {
             return new ComandoSuscripcion(idSuscripcion, idCliente, valorSuscripcion, tipoSuscripcion, fechaRegistro);
         }
 
-    private LocalDateTime cambiarFormatoFecha(String fecha){
-        DateTimeFormatter formato = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
-        return LocalDateTime.parse(fecha, formato);
+    private LocalDateTime cambiarFormatoFecha(){
+         return LocalDateTime.of(2021,8,12,11,30,0);
     }
 
 }

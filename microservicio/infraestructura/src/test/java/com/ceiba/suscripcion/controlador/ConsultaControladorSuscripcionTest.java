@@ -31,7 +31,6 @@ public class ConsultaControladorSuscripcionTest {
         mocMvc.perform(get("/suscripcion")
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$", hasSize(1)))
                 .andExpect(jsonPath("$[0].idCliente", is(50)))
                 .andExpect(jsonPath("$[0].valorSuscripcion", is(70000.0)))
                 .andExpect(jsonPath("$[0].tipoSuscripcion", is("XXX")));
