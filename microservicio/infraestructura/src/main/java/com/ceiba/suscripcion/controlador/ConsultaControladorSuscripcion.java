@@ -23,7 +23,7 @@ public class ConsultaControladorSuscripcion {
 
     @GetMapping
     @ApiOperation("Listar Suscripciones")
-    public List<DtoSuscripcion> Listar(){
+    public List<DtoSuscripcion> listar(){
         return manejadorListarSuscripcion.ejecutar();
     }
 

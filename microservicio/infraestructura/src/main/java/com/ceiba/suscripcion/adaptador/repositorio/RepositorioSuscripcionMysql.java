@@ -7,6 +7,7 @@ import com.ceiba.suscripcion.puerto.repositorio.RepositorioSuscripcion;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.stereotype.Repository;
 
+import java.text.ParseException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
@@ -55,15 +56,15 @@ public class RepositorioSuscripcionMysql implements RepositorioSuscripcion {
             if(fechaRecienteYTipoSuscripcion.equals("/XXX") && fechaRecienteYTipoSuscripcion != null){
                 cantidadDiasActivaSuscripcion = prepararFecha(fechaRecienteYTipoSuscripcion);
             }
-        }catch (Exception e){
+        }catch (RuntimeException e){
             cantidadDiasActivaSuscripcion = null;
         }
         return cantidadDiasActivaSuscripcion;
     }
 
     private Integer prepararFecha(String fechaRecienteYTipoSuscripcion){
-        String SEPARADOR = "/";
-        String[] arregloDeValores = fechaRecienteYTipoSuscripcion.split(SEPARADOR);
+        String separador = "/";
+        String[] arregloDeValores = fechaRecienteYTipoSuscripcion.split(separador);
         String fecha = arregloDeValores[0].trim();
         String tipoServicio = arregloDeValores[1].trim();
         return convertirFechaADias(fecha, tipoServicio);
@@ -80,7 +81,7 @@ public class RepositorioSuscripcionMysql implements RepositorioSuscripcion {
             LocalDateTime fechaConSumaDias= fechaReciente.plusDays(tipoServicio.equals(tipoServicioMensual) ?diasMensuales:diasQuincenales);
             Long dias = DAYS.between(LocalDateTime.now(), fechaConSumaDias);
             return dias == null ? null : Math.toIntExact(dias);
-        }catch (Exception e){
+        }catch (RuntimeException  e){
             return null;
         }
     }

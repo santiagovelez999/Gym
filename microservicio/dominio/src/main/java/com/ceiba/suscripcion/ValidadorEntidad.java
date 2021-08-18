@@ -44,9 +44,8 @@ public final class ValidadorEntidad {
                                                                        BigDecimal valorSuscripcion,
                                                                        String mensaje){
         if(tipoSuscripcion.equals(TIPO_SUSCRIPCION_POR_MES) &&
-                !valorSuscripcion.equals(VALOR_SUSCRIPCION_MENSUAL)){
-                throw new ExcepcionValorInvalido(mensaje);
-        }else if(tipoSuscripcion.equals(TIPO_SUSCRIPCION_POR_QUINCENA) &&
+                !valorSuscripcion.equals(VALOR_SUSCRIPCION_MENSUAL) ||
+                tipoSuscripcion.equals(TIPO_SUSCRIPCION_POR_QUINCENA) &&
                 !valorSuscripcion.equals(VALOR_SUSCRIPCION_QUINCENAL)){
                 throw new ExcepcionValorInvalido(mensaje);
         }
