@@ -6,10 +6,9 @@ import com.ceiba.suscripcion.modelo.entidad.Suscripcion;
 import com.ceiba.suscripcion.puerto.repositorio.RepositorioSuscripcion;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.stereotype.Repository;
-
-import java.text.ParseException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.logging.Logger;
 
 
 import static java.time.temporal.ChronoUnit.DAYS;
@@ -47,19 +46,16 @@ public class RepositorioSuscripcionMysql implements RepositorioSuscripcion {
     @Override
     public Integer existe(Long idCliente) {
         String fechaRecienteYTipoSuscripcion = "";
-        Integer cantidadDiasActivaSuscripcion = null;
         try {
             MapSqlParameterSource paramSource = new MapSqlParameterSource();
             paramSource.addValue("idCliente", idCliente);
             fechaRecienteYTipoSuscripcion =  this.customNamedParameterJdbcTemplate.
                     getNamedParameterJdbcTemplate().queryForObject(sqlExiste,paramSource, String.class);
-            if(fechaRecienteYTipoSuscripcion.equals("/XXX") && fechaRecienteYTipoSuscripcion != null){
-                cantidadDiasActivaSuscripcion = prepararFecha(fechaRecienteYTipoSuscripcion);
-            }
+            return fechaRecienteYTipoSuscripcion != null?prepararFecha(fechaRecienteYTipoSuscripcion):null;
         }catch (RuntimeException e){
-            cantidadDiasActivaSuscripcion = null;
+            Logger.getLogger(e.getMessage()).info("ERROR");
+            return null;
         }
-        return cantidadDiasActivaSuscripcion;
     }
 
     private Integer prepararFecha(String fechaRecienteYTipoSuscripcion){
@@ -67,7 +63,7 @@ public class RepositorioSuscripcionMysql implements RepositorioSuscripcion {
         String[] arregloDeValores = fechaRecienteYTipoSuscripcion.split(separador);
         String fecha = arregloDeValores[0].trim();
         String tipoServicio = arregloDeValores[1].trim();
-        return convertirFechaADias(fecha, tipoServicio);
+        return !fecha.isEmpty()?convertirFechaADias(fecha, tipoServicio):null;
     }
 
     private Integer convertirFechaADias(String fecha, String tipoServicio){
@@ -82,6 +78,7 @@ public class RepositorioSuscripcionMysql implements RepositorioSuscripcion {
             Long dias = DAYS.between(LocalDateTime.now(), fechaConSumaDias);
             return dias == null ? null : Math.toIntExact(dias);
         }catch (RuntimeException  e){
+            Logger.getLogger(e.getMessage()).info("ERROR");
             return null;
         }
     }

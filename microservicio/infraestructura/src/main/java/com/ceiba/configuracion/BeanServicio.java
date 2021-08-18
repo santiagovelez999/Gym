@@ -31,12 +31,12 @@ public class BeanServicio {
     // -------------------- SUSCRIPCIÓN ------------- //
 
     @Bean
-    public ServicioCrearSuscripcion ServicioCrearSuscripcion(RepositorioSuscripcion repositorioSuscripcion) {
+    public ServicioCrearSuscripcion servicioCrearSuscripcion(RepositorioSuscripcion repositorioSuscripcion) {
         return new ServicioCrearSuscripcion(repositorioSuscripcion);
     }
 
     @Bean
-    public ServicioActualizarSuscripcion ServicioActualizarSuscripcion(RepositorioSuscripcion repositorioSuscripcion) {
+    public ServicioActualizarSuscripcion servicioActualizarSuscripcion(RepositorioSuscripcion repositorioSuscripcion) {
         return new ServicioActualizarSuscripcion(repositorioSuscripcion);
     }
 
