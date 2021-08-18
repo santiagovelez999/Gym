@@ -16,8 +16,8 @@ public class ValidadorEntidad {
     private static final int DIAS_MES = 30;
     private static final int DIAS_QUINCENA = 15;
 
-    private static final BigDecimal VALOR_SUSCRIPCION_MENSUAL = new BigDecimal(70000.00);
-    private static final BigDecimal VALOR_SUSCRIPCION_QUINCENAL = new BigDecimal(40000.00);
+    private static final BigDecimal VALOR_SUSCRIPCION_MENSUAL = new BigDecimal("70000");
+    private static final BigDecimal VALOR_SUSCRIPCION_QUINCENAL = new BigDecimal("40000");
     private static String VALOR_DESCUENTO = "$4900";
 
     private static final String[] DIAS_SEMANA_DESCUENTO = {"WEDNESDAY","THURSDAY"};

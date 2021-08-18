@@ -25,8 +25,8 @@ public class ServicioCrearSuscripcionTest {
 
     @Before
     public void init() {
-        VALOR_CON_DESCUENTO = new BigDecimal(65100);
-        VALOR_SIN_DESCUENTO = new BigDecimal(70000);
+        VALOR_CON_DESCUENTO = new BigDecimal("65100");
+        VALOR_SIN_DESCUENTO = new BigDecimal("70000");
         FECHA_REGISTRO_CON_DESCUENTO = LocalDateTime.
                 of(2021,8,12,11,30,0);
         FECHA_REGISTRO_SIN_DESCUENTO = LocalDateTime.
@@ -61,7 +61,7 @@ public class ServicioCrearSuscripcionTest {
         SuscripcionTestDataBuilder suscripcionTestDataBuilder = new
                 SuscripcionTestDataBuilder()
                 .conTipoSuscripcion("XV")
-                .conValorSuscripcion(new BigDecimal(70000));
+                .conValorSuscripcion(new BigDecimal("70000"));
 
         BasePrueba.assertThrows(() -> suscripcionTestDataBuilder.build(),
                 ExcepcionValorInvalido.class,
@@ -73,7 +73,7 @@ public class ServicioCrearSuscripcionTest {
         Suscripcion suscripcionTest = new
                 SuscripcionTestDataBuilder().
                 conTipoSuscripcion("XXX").
-                conValorSuscripcion(new BigDecimal(70000)).
+                conValorSuscripcion(new BigDecimal("70000")).
                 conFechaRegistro(FECHA_REGISTRO_CON_DESCUENTO).build();
         Assert.assertEquals(VALOR_CON_DESCUENTO, suscripcionTest.getValorSuscripcion());
     }
@@ -83,7 +83,7 @@ public class ServicioCrearSuscripcionTest {
         Suscripcion suscripcionTest = new
                 SuscripcionTestDataBuilder().
                 conTipoSuscripcion("XXX").
-                conValorSuscripcion(new BigDecimal(70000)).
+                conValorSuscripcion(new BigDecimal("70000")).
                 conFechaRegistro(FECHA_REGISTRO_SIN_DESCUENTO).build();
         Assert.assertEquals(VALOR_SIN_DESCUENTO, suscripcionTest.getValorSuscripcion());
     }
@@ -93,7 +93,7 @@ public class ServicioCrearSuscripcionTest {
         Suscripcion suscripcionTest = new
                 SuscripcionTestDataBuilder().
                 conTipoSuscripcion("XV").
-                conValorSuscripcion(new BigDecimal(40000)).
+                conValorSuscripcion(new BigDecimal("40000")).
                 conFechaRegistro(FECHA_REGISTRO_CON_DESCUENTO).
                 build();
 
@@ -115,7 +115,7 @@ public class ServicioCrearSuscripcionTest {
     public void mostrarDescuentoNoAplicadoPorSuscripcionTest(){
         Suscripcion suscripcionTest = new
                 SuscripcionTestDataBuilder().
-                conValorSuscripcion(new BigDecimal(40000)).
+                conValorSuscripcion(new BigDecimal("40000")).
                 conTipoSuscripcion("XV").
                 build();
 
@@ -127,7 +127,6 @@ public class ServicioCrearSuscripcionTest {
     public void validarUsuarioExistenciaSuscripcionPreviaTest() {
         // arrange
         Suscripcion suscripcion = new SuscripcionTestDataBuilder().
-                conFechaRegistro(FECHA_REGISTRO_CON_DESCUENTO).
                 build();
         RepositorioSuscripcion repositorioSuscripcion = Mockito.mock(RepositorioSuscripcion.class);
         Mockito.when(repositorioSuscripcion.existe(Mockito.anyLong())).thenReturn(24);

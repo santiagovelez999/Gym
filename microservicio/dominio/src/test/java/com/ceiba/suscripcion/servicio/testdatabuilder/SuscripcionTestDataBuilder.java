@@ -16,7 +16,7 @@ public class SuscripcionTestDataBuilder {
 
     public SuscripcionTestDataBuilder(){
         idCliente = 50L;
-        valorSuscripcion = new BigDecimal(70000);
+        valorSuscripcion = new BigDecimal("70000");
         tipoSuscripcion = "XXX";
         fechaRegistro = LocalDateTime.now();
     }
