@@ -18,23 +18,23 @@ public class ServicioActualizarSuscripcion {
     }
 
     public void ejecutar(Suscripcion suscripcion){
-        validarExistenciaPrevia(suscripcion);
+        //validarExistenciaPrevia(suscripcion);
         this.repositorioSuscripcion.actualizar(suscripcion);
     }
 
-    private void validarExistenciaPrevia(Suscripcion suscripcion) {
+    /*private void validarExistenciaPrevia(Suscripcion suscripcion) {
         Integer numeroDias =  this.repositorioSuscripcion.existe(suscripcion.getIdCliente());
         if(numeroDias != null && numeroDias > 0){
             throw new ExcepcionDuplicidad(duplicidadSuscripcionActiva(suscripcion.getIdCliente(),
                     numeroDias));
         }
-    }
+    }*/
 
-    private static final String duplicidadSuscripcionActiva(Long idCliente, Integer diasFaltantes){
+    /*private static final String duplicidadSuscripcionActiva(Long idCliente, Integer diasFaltantes){
         String remplazarUsuario = EL_USUARIO_YA_TIENE_SUSCRIPCION_ACTIVA.
                 replace("xxx",idCliente.toString());
         String remplazarDiasFaltantesSuscripcion = remplazarUsuario.
                 replace("yyy", diasFaltantes.toString());
         return remplazarDiasFaltantesSuscripcion;
-    }
+    }*/
 }
