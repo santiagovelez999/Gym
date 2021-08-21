@@ -9,6 +9,7 @@ import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import java.util.Map;
+import org.springframework.web.bind.annotation.CrossOrigin;
 
 @RestController
 @RequestMapping("/suscripcion")
@@ -27,12 +28,14 @@ public class ComandoControladorSuscripcion {
     }
 
     @PostMapping
+    @CrossOrigin(origins = "http://localhost:4200")
     @ApiOperation("Crear Suscripcion")
     public ComandoRespuesta<Map<String, String>> crear(@RequestBody ComandoSuscripcion comandoSuscripcion) {
         return manejadorCrearSuscripcion.ejecutar(comandoSuscripcion);
     }
 
     @PutMapping(value="/{id}")
+    @CrossOrigin(origins = "http://localhost:4200")
     @ApiOperation("Actualizar Suscripcion")
     public void actualizar(@RequestBody ComandoSuscripcion comandoSuscripcion, @PathVariable Long id) {
         comandoSuscripcion.setIdSuscripcion(id);
