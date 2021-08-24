@@ -18,6 +18,7 @@ public class ComandoControladorSuscripcion {
 
     private final ManejadorCrearSuscripcion manejadorCrearSuscripcion;
     private final ManejadorActualizarSuscripcion manejadorActualizarSuscripcion;
+    private final String URL_PERMITIDA = "http://localhost:4200";
 
     @Autowired
     public ComandoControladorSuscripcion(ManejadorCrearSuscripcion manejadorCrearSuscripcion,
@@ -28,7 +29,7 @@ public class ComandoControladorSuscripcion {
     }
 
     @PostMapping
-    @CrossOrigin(origins = "http://localhost:4200")
+    @CrossOrigin(origins = URL_PERMITIDA)
     @ApiOperation("Crear Suscripcion")
     public ComandoRespuesta<Map<String, String>> crear(@RequestBody ComandoSuscripcion comandoSuscripcion) {
         return manejadorCrearSuscripcion.ejecutar(comandoSuscripcion);

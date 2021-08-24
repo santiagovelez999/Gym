@@ -17,13 +17,14 @@ import java.util.List;
 public class ConsultaControladorSuscripcion {
 
     private final ManejadorListarSuscripcion manejadorListarSuscripcion;
+    private final String URL_PERMITIDA = "http://localhost:4200";
 
     public ConsultaControladorSuscripcion(ManejadorListarSuscripcion manejadorListarSuscripcion){
         this.manejadorListarSuscripcion = manejadorListarSuscripcion;
     }
 
     @GetMapping
-    @CrossOrigin(origins = "http://localhost:4200")
+    @CrossOrigin(origins = URL_PERMITIDA)
     @ApiOperation("Listar Suscripciones")
     public List<DtoSuscripcion> listar(){
         return manejadorListarSuscripcion.ejecutar();

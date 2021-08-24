@@ -135,4 +135,20 @@ public class ServicioCrearSuscripcionTest {
         BasePrueba.assertThrows(() -> servicioCrearSuscripcion.ejecutar(suscripcion),
                 ExcepcionDuplicidad.class,"El usuario 50 ya tiene una suscripción activa, aun tiene (24) días disponibles.");
     }
+
+    @Test
+    public void validarCreacionSuscripcionTest() {
+        // arrange
+        Suscripcion suscripcion = new SuscripcionTestDataBuilder().
+                conIdCliente(30L).
+                conValorSuscripcion(new BigDecimal("40000")).
+                conTipoSuscripcion("XV").
+                conFechaRegistro(FECHA_REGISTRO_SIN_DESCUENTO).
+                build();
+        RepositorioSuscripcion repositorioSuscripcion = Mockito.mock(RepositorioSuscripcion.class);
+        Mockito.when(repositorioSuscripcion.crear(suscripcion)).thenReturn(1L);
+        ServicioCrearSuscripcion servicioCrearSuscripcion = new ServicioCrearSuscripcion(repositorioSuscripcion);
+        // act
+        Assert.assertEquals(servicioCrearSuscripcion.ejecutar(suscripcion).toString(), "{descuento=$0, fechaDeVencimientoDeLaSuscripcion=28/08/2021}");;
+    }
 }
