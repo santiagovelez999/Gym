@@ -3,9 +3,6 @@ package com.ceiba.suscripcion.controlador;
 import com.ceiba.ApplicationMock;
 import com.ceiba.suscripcion.comando.ComandoSuscripcion;
 import com.ceiba.suscripcion.servicio.ComandoSuscripcionTestDataBuilder;
-import com.ceiba.usuario.comando.ComandoUsuario;
-import com.ceiba.usuario.controlador.ComandoControladorUsuario;
-import com.ceiba.usuario.servicio.testdatabuilder.ComandoUsuarioTestDataBuilder;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -45,6 +42,21 @@ public class ComandoControladorSuscripcionTest {
                         .content(objectMapper.writeValueAsString(suscripcion)))
                 .andExpect(status().isOk())
                 .andExpect(content().json("{'valor':{'descuento':'$4900','fechaDeVencimientoDeLaSuscripcion':'11/09/2021'}}"));
+    }
+
+    @Test
+    public void validarExistente() throws Exception{
+        // arrange
+        ComandoSuscripcion suscripcion = new ComandoSuscripcionTestDataBuilder().
+                conIdCliente(50L).
+                build();
+
+        // act - assert
+        mocMvc.perform(post("/suscripcion")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(suscripcion)))
+                .andExpect(status().isBadRequest())
+                .andExpect(content().json("{'nombreExcepcion':'ExcepcionDuplicidad','mensaje':'El usuario 50 ya tiene una suscripción activa, aun tiene (18) días disponibles.'}"));
     }
 
     @Test
