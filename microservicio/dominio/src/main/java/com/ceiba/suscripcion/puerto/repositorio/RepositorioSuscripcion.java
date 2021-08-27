@@ -23,4 +23,10 @@ public interface RepositorioSuscripcion {
      * @return si existe o no
      */
     Integer existe(Long idCliente);
+
+    /**
+     * Permite eliminar una suscripcion
+     * @param id
+     */
+    void eliminar(Long id);
 }

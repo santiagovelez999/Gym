@@ -3,6 +3,7 @@ package com.ceiba.configuracion;
 import com.ceiba.suscripcion.puerto.repositorio.RepositorioSuscripcion;
 import com.ceiba.suscripcion.servicio.ServicioActualizarSuscripcion;
 import com.ceiba.suscripcion.servicio.ServicioCrearSuscripcion;
+import com.ceiba.suscripcion.servicio.ServicioEliminarSuscripcion;
 import com.ceiba.usuario.puerto.repositorio.RepositorioUsuario;
 import com.ceiba.usuario.servicio.ServicioActualizarUsuario;
 import com.ceiba.usuario.servicio.ServicioCrearUsuario;
@@ -38,6 +39,11 @@ public class BeanServicio {
     @Bean
     public ServicioActualizarSuscripcion servicioActualizarSuscripcion(RepositorioSuscripcion repositorioSuscripcion) {
         return new ServicioActualizarSuscripcion(repositorioSuscripcion);
+    }
+
+    @Bean
+    public ServicioEliminarSuscripcion servicioEliminarSuscripcion(RepositorioSuscripcion repositorioSuscripcion) {
+        return new ServicioEliminarSuscripcion(repositorioSuscripcion);
     }
 
 }

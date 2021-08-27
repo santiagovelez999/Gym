@@ -26,6 +26,9 @@ public class RepositorioSuscripcionMysql implements RepositorioSuscripcion {
     @SqlStatement(namespace="suscripcion", value="actualizar")
     private static String sqlActualizar;
 
+    @SqlStatement(namespace="suscripcion", value="eliminar")
+    private static String sqlEliminar;
+
 
     public RepositorioSuscripcionMysql(CustomNamedParameterJdbcTemplate customNamedParameterJdbcTemplate){
         this.customNamedParameterJdbcTemplate = customNamedParameterJdbcTemplate;
@@ -55,6 +58,15 @@ public class RepositorioSuscripcionMysql implements RepositorioSuscripcion {
        }else{
            return null;
        }
+    }
+
+    @Override
+    public void eliminar(Long id) {
+        MapSqlParameterSource paramSource = new MapSqlParameterSource();
+        paramSource.addValue("idSuscripcion", id);
+
+        this.customNamedParameterJdbcTemplate.getNamedParameterJdbcTemplate().update(sqlEliminar, paramSource);
+
     }
 
     private Integer prepararFecha(String fechaRecienteYTipoSuscripcion){
