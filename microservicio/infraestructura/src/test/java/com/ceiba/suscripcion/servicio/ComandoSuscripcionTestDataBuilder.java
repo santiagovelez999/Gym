@@ -1,10 +1,11 @@
 package com.ceiba.suscripcion.servicio;
 
 import com.ceiba.suscripcion.comando.ComandoSuscripcion;
-
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.Arrays;
+import java.util.List;
 
 public class ComandoSuscripcionTestDataBuilder {
 
@@ -18,7 +19,7 @@ public class ComandoSuscripcionTestDataBuilder {
             idCliente = 50L;
             valorSuscripcion = new BigDecimal(70000);
             tipoSuscripcion = "XXX";
-            fechaRegistro =  cambiarFormatoFecha();
+            fechaRegistro =  LocalDateTime.now();
         }
 
         public ComandoSuscripcionTestDataBuilder conIdCliente(Long idCliente){
@@ -29,9 +30,5 @@ public class ComandoSuscripcionTestDataBuilder {
         public ComandoSuscripcion build() {
             return new ComandoSuscripcion(idSuscripcion, idCliente, valorSuscripcion, tipoSuscripcion, fechaRegistro);
         }
-
-    private LocalDateTime cambiarFormatoFecha(){
-         return LocalDateTime.of(2021,8,12,11,30,0);
-    }
 
 }

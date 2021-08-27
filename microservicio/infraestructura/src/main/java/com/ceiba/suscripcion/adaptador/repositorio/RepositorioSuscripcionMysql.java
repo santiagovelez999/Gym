@@ -64,9 +64,7 @@ public class RepositorioSuscripcionMysql implements RepositorioSuscripcion {
     public void eliminar(Long id) {
         MapSqlParameterSource paramSource = new MapSqlParameterSource();
         paramSource.addValue("idSuscripcion", id);
-
         this.customNamedParameterJdbcTemplate.getNamedParameterJdbcTemplate().update(sqlEliminar, paramSource);
-
     }
 
     private Integer prepararFecha(String fechaRecienteYTipoSuscripcion){
